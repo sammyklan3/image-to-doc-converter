@@ -20,8 +20,11 @@ eggs/
 .eggs/
 lib/
 output.docx
+<<<<<<< HEAD
 Private project details (100 images).pdf
 images/
+=======
+>>>>>>> 943410e2109943a7f54ce4b4e6a077d7f9fe5931
 lib64/
 parts/
 sdist/
