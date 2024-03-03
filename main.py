@@ -7,7 +7,9 @@ from PIL import Image
 from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT, WD_LINE_SPACING
+from language_tool_python import LanguageTool
 
+# Set path to Tesseract executable
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Function to extract text from image using OCR
@@ -69,10 +71,25 @@ def create_word_document(texts):
     except Exception as e:
         print(f"Error occurred while saving the Word document: {str(e)}")
 
+# Function to proofread the Word document
+def proofread_document(docx_file):
+    try:
+        doc = Document(docx_file)
+        tool = LanguageTool('en-US')
+        for para in doc.paragraphs:
+            matches = tool.check(para.text)
+            if matches:
+                print(f"Paragraph: '{para.text.strip()}'")
+                for match in matches:
+                    print(f"  - Error: {match.ruleIssueType}, Message: {match.message}, Correction: {match.replacements}")
+        print("Proofreading completed.")
+    except Exception as e:
+        print(f"Error occurred while proofreading the document: {str(e)}")
+
 # Main function
 def main():
-    source = input("Enter '1' to process a PDF file, '2' to process images directory: ")
-    
+    source = input("Enter '1' to process a PDF file, '2' to process images directory, '3' to proofread a Word document: ")
+
     if source == '1':
         pdf_file = input("Enter the path to the PDF file: ")
         texts = extract_text_from_pdf(pdf_file)
@@ -86,8 +103,11 @@ def main():
                 text = extract_text_from_image(image_path)
                 texts.append(text)
         create_word_document(texts)
+    elif source == '3':
+        docx_file = input("Enter the path to the Word document: ")
+        proofread_document(docx_file)
     else:
-        print("Invalid input. Please enter '1' or '2'.")
+        print("Invalid input. Please enter '1', '2', or '3'.")
 
 if __name__ == "__main__":
     main()
