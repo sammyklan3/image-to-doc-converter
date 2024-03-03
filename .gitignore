@@ -19,6 +19,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+output.docx
 lib64/
 parts/
 sdist/
