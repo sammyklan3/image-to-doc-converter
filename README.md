@@ -3,7 +3,8 @@ This project entails a python script for converting a collection of images(which
 
 ## How to Run the script
 > [!NOTE]
-> This project requires **tesseract** installed on your system.
+> This project requires **tesseract** installed on your system. To install it visit (https://tesseract-ocr.github.io/tessdoc/Installation.html).
+
 1. Clone into the directory by running `git clone https://github.com/sammyklan3/image-to-doc-converter.git`.
 2. Install the required modules by running `pip install -r requirements.txt`.
 3. Run the script by executing `python3 main.py`
